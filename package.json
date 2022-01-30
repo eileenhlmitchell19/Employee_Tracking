@@ -11,6 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "index.js": "^0.0.3"
+    "asciiart-logo": "^0.2.6",
+    "console.table": "^0.10.0",
+    "index.js": "^0.0.3",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
   }
 }
