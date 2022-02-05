@@ -1,41 +1,33 @@
-    const mysql = require('mysql');
-    const db = require('db');
-    const util = require('util');
-    const inquire = require('inquire');
+const mysql = require('mysql');
+// const util = require('util');
 const inquirer = require('inquirer');
 
-// const connection = require('mysql2/typings/mysql/lib/Connection');
+const PORT = 3306;
 
-db.query = util.promisify( db.query );
-
-db.query('SELECT * FROM employee')
-    .then((results) => {
-
-    // console.log(err);
-    console.table(results);
-
-});
 
 //--------------------- Connect to database-----------------------------//
-    const db = mysql.createConnection(
-        {
-        host: 'l127.0.0.1',
+const db = mysql.createConnection(
+    {
+        host: '127.0.0.1',
         // MySQL username,
         user: 'root',
+        port: PORT,
         // MySQL password
         password: 'password',
-        database: 'employees'
-        });
-
-        Connection.connect(function (err) {
-            if (err) {
-                throw err;
-        } else {
-            console.log('Successfully connected to mysql')
-        }
+        database: 'employee_db'
     });
 
-    module.exports = connection;
+db.connect(function (err) {
+    if (err) {
+        throw err;
+    } else {
+        console.log(`Successfully connected to mysql on PORT: ${PORT}`)
+    }
+
+    
+});
+
+    // module.exports = connection;
 //-----------------------------------------------------------------------//
 
 
@@ -49,32 +41,32 @@ db.query('SELECT * FROM employee')
     //------------ View all Departments, Roles, Employees Functions-------------//
     //17:17 into vid
     //view all departments - READ - SELECT * FROM [table_name]
-    async function viewAllDepartments() {
+    // async function viewAllDepartments() {
 
-        const employees = await db.query('SELECT * FROM departments')
+    //     const employees = await db.query('SELECT * FROM departments')
 
-        console.table(results);
+    //     console.table(results);
 
-    }
+    // }
 
     //view all roles - READ - SELECT * FROM [table_name]
-    async function viewAllRoles(){
+    // async function viewAllRoles(){
 
-        const employees = await db.query('SELECT * FROM roles')
+    //     const employees = await db.query('SELECT * FROM roles')
 
-        console.table(results);
+    //     console.table(results);
 
-    }
+    // }
 
 
     //view all employees - READ - SELECT * FROM [table_name]
-    async function viewAllEmployees(){
+    // async function viewAllEmployees(){
 
-        const employees = await db.query('SELECT * FROM employee')
+    //     const employees = await db.query('SELECT * FROM employee')
 
-        console.table(results);
+    //     console.table(results);
 
-    }
+    // }
 //--------------------------------------------------------------------------//
 
 //--------------------------- ADD A DEPARTMENT -----------------------------//
@@ -87,7 +79,7 @@ db.query('SELECT * FROM employee')
 
 
 //------------------------------ ADD A ROLE --------------------------------//
-    //add a role - CREATE - 
+    //add a role - CREATE -
 
 
 
@@ -96,41 +88,51 @@ db.query('SELECT * FROM employee')
 
 //----------------------------- SELECT A ROLE ------------------------------//
         // SELECT the existing roles out for the `roles` table
-    const departments = [
-        {
-            id: 1,
-            name: "Sales"
-        },
-        {
-            id: 1,
-            name: "Sales"
-        }
-    ];
+        // const departments = [
+        //     {
+        //         id: 1,
+        //         name: "Executive Officer"
+        //     },
+        //     {
+        //         id: 2,
+        //         name: "Analyst"
+        //     },
+        //     {
+        //         id: 3,
+        //         name: "Clerk"
+        //     },
+        //     {
+        //         id: 4,
+        //         name: "City Council"
+        //     }
+        // ];
             // .map() the results from `roles` to question data for inquirer
-            const choices = department.map( department => {
-                return {
-                    name: department.name,
-                    value: department.id
-                }
-            })
+            // const choices = department.map( department => {
+            //     return {
+            //         name: department.name,
+            //         value: department.id
+            //     }
+            // })
 
 
 // no foreign ids are in this one
-           const answers = await inquirer
-            .prompt([
-                {
-                    type: "list",
-                    name: "department_id",
-                    message: "Choice a department",
-                    choices: [
-                        { name: "Sales", value: 1 },
-                        { name: "Accounting", value: 2},
-                    ]
-                }
-            ])
-            .then((answers) => {
-                console.log(answers);
-            })
+        //    const answers = await inquirer
+        //     .prompt([
+        //         {
+        //             type: "list",
+        //             name: "department_id",
+        //             message: "Choose a department",
+        //             choices: [
+        //                 { name: "Executive Officer", value: 1 },
+        //                 { name: "Analyst", value: 2},
+        //                 { name: "Clerk", value: 3},
+        //                 { name: "City Council", value: 4},
+        //             ]
+        //         }
+        //     ])
+        //     .then((answers) => {
+        //         console.log(answers);
+        //     })
 //--------------------------------------------------------------------------//
 
 
@@ -139,7 +141,7 @@ db.query('SELECT * FROM employee')
 
             // Take the user's answers and go INSERT them into the `role` table
 
-    //add an employee - CREATE - 
+    //add an employee - CREATE -
 
     //update an employee
 
