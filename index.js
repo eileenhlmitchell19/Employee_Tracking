@@ -27,11 +27,8 @@ db.connect(function (err) {
     
 });
 
-    // module.exports = connection;
-//-----------------------------------------------------------------------//
-
-
-
+    module.exports = mysql;
+// ----------------------------------------------------------------------//
 
     //25 mins into sql vid
     //Present user with options
@@ -41,32 +38,31 @@ db.connect(function (err) {
     //------------ View all Departments, Roles, Employees Functions-------------//
     //17:17 into vid
     //view all departments - READ - SELECT * FROM [table_name]
-    // async function viewAllDepartments() {
+    async function viewAllDepartments() {
 
-    //     const employees = await db.query('SELECT * FROM departments')
+        const employees = await db.query('SELECT * FROM departments')
 
-    //     console.table(results);
+        console.table(results);
 
-    // }
+    }
 
-    //view all roles - READ - SELECT * FROM [table_name]
-    // async function viewAllRoles(){
+    // view all roles - READ - SELECT * FROM [table_name]
+    async function viewAllRoles(){
 
-    //     const employees = await db.query('SELECT * FROM roles')
+        const employees = await db.query('SELECT * FROM roles')
 
-    //     console.table(results);
+        console.table(results);
 
-    // }
-
+    }
 
     //view all employees - READ - SELECT * FROM [table_name]
-    // async function viewAllEmployees(){
+    async function viewAllEmployees(){
 
-    //     const employees = await db.query('SELECT * FROM employee')
+        const employees = await db.query('SELECT * FROM employee')
 
-    //     console.table(results);
+        console.table(results);
 
-    // }
+    }
 //--------------------------------------------------------------------------//
 
 //--------------------------- ADD A DEPARTMENT -----------------------------//
@@ -116,23 +112,23 @@ db.connect(function (err) {
 
 
 // no foreign ids are in this one
-        //    const answers = await inquirer
-        //     .prompt([
-        //         {
-        //             type: "list",
-        //             name: "department_id",
-        //             message: "Choose a department",
-        //             choices: [
-        //                 { name: "Executive Officer", value: 1 },
-        //                 { name: "Analyst", value: 2},
-        //                 { name: "Clerk", value: 3},
-        //                 { name: "City Council", value: 4},
-        //             ]
-        //         }
-        //     ])
-        //     .then((answers) => {
-        //         console.log(answers);
-        //     })
+           inquirer
+            .prompt([
+                {
+                    type: "list",
+                    name: "role_table",
+                    message: "Choose an employee role.",
+                    choices: [
+                        { name: "Civil Engineering", value: 1 },
+                        { name: "Planning", value: 2},
+                        { name: "CAD", value: 3},
+                        { name: "Survey", value: 4},
+                    ]
+                }
+            ])
+            .then((answers) => {
+                console.log(answers);
+            })
 //--------------------------------------------------------------------------//
 
 
