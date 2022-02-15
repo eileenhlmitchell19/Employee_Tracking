@@ -6,26 +6,26 @@ USE employee_db;
 
 
 
-CREATE TABLE department_table (
+CREATE TABLE department (
     id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(30) NOT NULL,
     PRIMARY KEY(id)
 );
 
-CREATE TABLE role_table (
-    id  INT AUTO_INCREMENT NOT NULL,
-    title VARCHAR(30),
-    salary DECIMAL(10,2),
-    department_id INT,
+CREATE TABLE role (
+    id  INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    title VARCHAR(30) NOT NULL,
+    salary DECIMAL UNSIGNED NOT NULL,
+    department_id INT NOT NULL,
     
-    PRIMARY KEY(id),
-    CONSTRAINT fk_department_table
+    CONSTRAINT fk_department
     FOREIGN KEY (department_id)
-    REFERENCES department_table(id)
+    REFERENCES department(id)
     ON DELETE CASCADE
+    
 );
 
-CREATE TABLE employee_table (
+CREATE TABLE employee (
     id INT NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
@@ -33,14 +33,14 @@ CREATE TABLE employee_table (
     manager_id INT,
     PRIMARY KEY(id),
 
-    CONSTRAINT fk_role_table
+    CONSTRAINT fk_role
     FOREIGN KEY (role_id)
-    REFERENCES role_table(id)
+    REFERENCES role(id)
     ON DELETE CASCADE,
 
-    CONSTRAINT fk_employee_table
+    CONSTRAINT fk_employee
     FOREIGN KEY (manager_id)
-    REFERENCES employee_table(id)
+    REFERENCES employee(id)
     ON DELETE SET NULL
 );
 

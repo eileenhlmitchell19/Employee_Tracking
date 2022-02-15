@@ -1,34 +1,35 @@
-INSERT INTO role_table (id, title, salary, department_id )
+INSERT INTO department ( name )
 VALUES
-    ( 1, "Civil Engineering" ),
-    ( 2, "Planning" ),
-    ( 3, "CAD" ),
-    ( 4, "Survey" );
+    ( "Engineering"),
+    ( "Planning"),
 
-INSERT INTO employee_table (id, first_name, last_name)
+
+INSERT INTO role 
+    (title, salary, department_id )
+    VALUES
+        ( "Planning Director", 100000, 1 ),
+        ( "Planner", 80000, 1 ),
+        ( "Associate Planner", 70000, 1 ),
+        ( "Engineering Director", 60000, 2 ),
+        ( "Civil Engineer", 100000, 2 ),
+        ( "Design Engineer", 80000, 2 ),
+        ( "EIT", 70000, 2 ),
+        ( "Engineering Director", 60000, 2 );
+
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-    ( 1, "Clay", "Shmay" , 2 ),
-    ( 2, "Matt", "Hat", 2 ),
-    ( 3, "Ian", "Mian", 2 ),
-    ( 4, "Sami", "Crami", 2 ),
-    ( 3, "Eileen", "Smiling", 2 ),
-    ( 4, "Isaac", "Pieisaac", 2 ),
-    ( 5, "Darrell", "Parrell" , 1 ),
-    ( 6, "Tom", "Fom", 1 ),
-    ( 7, "Joe", "Schmoe", 1 ),
-    ( 8, "Jesse", "Sayshe", 1 ),
-    ( 9, "Sang", "Fang", 1 ),
-    ( 10, "Sam", "Ham", 1 ),
-    ( 1, "Ryan", "Flyin" , 3 ),
-    ( 2, "Brian", "Cryin", 3 ),
-    ( 3, "Vince", "Mince", 4 ),
-    ( 4, "Nigel", "Higel", 4 ),
-    ( 3, "Sebastian", "Migastian", 4 ),
+    ( "Clay", "Shmay" , 2, NULL),
+    ( "Matt", "Hat", 2, NULL ),
+    ( "Ian", "Mian", 2, NULL ),
+    ( "Sami", "Crami", 2, NULL ),
+    ( "Eileen", "Smiling", 2, NULL ),
+    ( "Isaac", "Pieisaac", 2, NULL ),
+    ( "Darrell", "Parrell" , 1, NULL ),
+    ( "Tom", "Fom", 1, NULL ),
+    ( "Joe", "Schmoe", 1, NULL ),
+    ( "Jesse", "Sayshe", 1, NULL ),
+    ( "Sang", "Fang", 1, NULL ),
+    ( "Sam", "Ham", 1, NULL ),
+
     
-
--- INSERT INTO fk_role_table (role_id, role_table )
--- VALUES
---     ( 1, "Plan Director" ),
---     ( 2, "Planner" ),
---     ( 3, "Associate Planner" );
-
