@@ -1,7 +1,7 @@
 INSERT INTO department ( name )
 VALUES
     ( "Engineering"),
-    ( "Planning"),
+    ( "Planning");
 
 
 INSERT INTO role 
@@ -30,6 +30,6 @@ VALUES
     ( "Joe", "Schmoe", 1, NULL ),
     ( "Jesse", "Sayshe", 1, NULL ),
     ( "Sang", "Fang", 1, NULL ),
-    ( "Sam", "Ham", 1, NULL ),
+    ( "Sam", "Ham", 1, NULL );
 
     
