@@ -19,14 +19,7 @@ db.connect(function (err) {
   if (err) {
     throw err;
   } else {
-    console.log(`Successfully connected to mysql on PORT: ${PORT}`);
-    viewAllDepartments();
-    viewAllRoles()
-
-    let interval = setInterval(() => {
-      start();
-      clearInterval(interval);
-    }, 1000);
+    start();
   }
 });
 
@@ -74,6 +67,7 @@ function start() {
         choices: [
           "Create an Employee",
           "View all Employees",
+          //needs its own function
           "Update Employee Role",
           "Create a Department",
           "View all Departments",
@@ -81,7 +75,7 @@ function start() {
           "Create a Role",
           "View all Roles",
           "Update Role",
-          "Nothing",
+          "Quit",
         ],
       }
     ])
@@ -95,7 +89,7 @@ function start() {
         viewAllEmployees();
       } else if (response.answers === "View all Roles") {
         viewAllRoles();
-      } else (response.answers === "Nothing") 
+      } else (response.answers === "Quit") 
     });
 }
 
@@ -146,3 +140,4 @@ function createRole() {
       start();
     });
 }
+
