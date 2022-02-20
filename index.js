@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 // const util = require('util');
 const inquirer = require("inquirer");
-
+const teamMembers = [];
 const PORT = 3306;
 
 //--------------------- Connect to database-----------------------------//
@@ -75,7 +75,7 @@ function start() {
           "Create a Role",
           "View all Roles",
           "Update Role",
-          "Quit",
+          "Quit"
         ],
       }
     ])
@@ -89,55 +89,78 @@ function start() {
         viewAllEmployees();
       } else if (response.answers === "View all Roles") {
         viewAllRoles();
-      } else (response.answers === "Quit") 
+      } else if (response.answers === "Create a Department") {
+        createDepartment();
+      }
+      
+      else (response.answers === "Quit") 
     });
 }
 
-function createRole() {
+function createDepartment() {
   inquirer
     .prompt([
-      // {
-      //     type:'Input',
-      //     name: 'employeeName',
-      //     message:'What is the employee name?'
-      // },
-    
       {
-        type: "Input",
-        name: "roleSalary",
-        message: "What is the role salary?",
-      },
-      {
-        type: "Input",
-        name: "roleTitle",
-        message: "What is the role title?",
-      },
-      {
-        type: "Input",
-        name: "departmentId",
-        message: "What is the department id?",
+          type:'Input',
+          name: 'departmentName',
+          message:'What is the department name?'
       },
     ])
-    .then((answers) => {
-      console.log(answers);
+    // .then(answers => {
+    //   console.log(answers);
 
-      let query = db.query(
-        "INSERT INTO role SET ?",
-        {
-            title: answers.roleTitle,
-            salary: answers.roleSalary,
-            department_id: answers.departmentId,
-        },
-        function (res, err) {
-          if (err) throw err;
-          console.log(res);
-        }
-      );
-
-      console.log("query", query);
+      .then(answers => { 
+        teamMembers.push( new Department ( answers.departmentName));
+        // arrayID.push(manager.id)
+        console.log(answers)
+        console.log(teamMembers)
+        buildTeam();
     })
-    .then(() => {
-      start();
-    });
-}
+
+// function updateRole() {
+//   inquirer
+//     .prompt([
+//       {
+//           type:'Input',
+//           name: 'employeeName',
+//           message:'What is the employee name?'
+//       },
+//       {
+//         type: "Input",
+//         name: "roleSalary",
+//         message: "What is the role salary?",
+//       },
+//       {
+//         type: "Input",
+//         name: "roleTitle",
+//         message: "What is the role title?",
+//       },
+//       {
+//         type: "Input",
+//         name: "departmentId",
+//         message: "What is the department id?",
+//       },
+//     ])
+    // .then((answers) => {
+    //   console.log(answers);
+
+    //   let query = db.query(
+    //     "INSERT INTO role SET ?",
+    //     {
+    //         title: answers.roleTitle,
+    //         salary: answers.roleSalary,
+    //         department_id: answers.departmentId,
+    //     },
+    //     function (res, err) {
+    //       if (err) throw err;
+    //       console.log(res);
+    //     }
+    //   );
+
+    //   console.log("query", query);
+    // })
+    // .then(() => {
+    //   start();
+    // });
+// }
 
