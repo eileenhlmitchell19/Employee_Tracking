@@ -71,10 +71,9 @@ function start() {
         choices: [
           "Create an Employee",
           "View all Employees",
-          "Update Employee",
-          "Create a Department",
+          "Create Department",
           "View all Departments",
-          "Create a Role",
+          "Create Role",
           "View all Roles",
           "Quit"
         ],
@@ -82,20 +81,18 @@ function start() {
     ])
     .then((response) => {
       console.log(response);
-      if (response.answers === "Create a Role") {
+      if (response.answers === "Create Role") {
         createRole();
       } else if (response.answers === "View all Roles") {
         viewAllRoles();
-      } else if (response.answers === "Update a Role") {
-        updateRole();
       } else if (response.answers === "View all Employees") {
-       viewAllEmployees();
-        } else if (response.answers === "Create Employee") {
-           createEmployee();
-        } else if (response.answers === "View all Departments") {
-       viewAllDepartments();
+        viewAllEmployees();
+      } else if (response.answers === "Create an Employee") {
+        createEmployee();
+      } else if (response.answers === "View all Departments") {
+        viewAllDepartments();
       } else if (response.answers === "Create Department") {
-        updateDepartment();
+        createDepartment();
       } else (response.answers === "Quit") 
     });
 }
@@ -122,6 +119,8 @@ function createDepartment() {
         console.log(answers)
         console.log(teamMembers)
         // buildTeam();
+        createDepartment();
+        // start();
     })
 //-------------------------------------------------------------------//
 
@@ -153,7 +152,10 @@ function createEmployee() {
         console.log(answers)
         console.log(teamMembers)
         // buildTeam();
+        createEmployee();
+        // start();
     })
+    
 //-------------------------------------------------------------------//
 
 //--------------------- CREATE ROLE -----------------------------//
