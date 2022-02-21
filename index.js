@@ -50,16 +50,30 @@ function createDepartment() {
         message: "What is the department name?",
       },
     ])
-    // .then(answers => {
+    // .then((answers) => {
+    //   teamMembers.push(new Department(answers.departmentName));
     //   console.log(answers);
+    //   console.log(teamMembers);
+    // });
+
     .then((answers) => {
-      teamMembers.push(new Department(answers.departmentName));
-      // arrayID.push(manager.id)
       console.log(answers);
-      console.log(teamMembers);
-      // buildTeam();
-      createDepartment();
-      // start();
+
+      let query = db.query(
+        "INSERT INTO department SET ?",
+        {
+          name: answers.departmentName,
+        },
+        function (res, err) {
+          if (err) throw err;
+          console.log(res);
+        }
+      );
+
+      console.log("query", query);
+    })
+    .then(() => {
+      start();
     });
 }  
   //-------------------------------------------------------------------//
@@ -101,9 +115,9 @@ function createDepartment() {
         let query = db.query(
           "INSERT INTO employee SET ?",
           {
-            Forename: answers.firstName,
-            Sirname: answers.lastName,
-            department_id: answers.roleId,
+            first_name: answers.firstName,
+            last_name: answers.lastName,
+            role_id: answers.roleId,
           },
           function (res, err) {
             if (err) throw err;
@@ -117,8 +131,6 @@ function createDepartment() {
         start();
       });
   }
-  //     });
-  // }
   //-------------------------------------------------------------------//
 
   //--------------------- CREATE ROLE -----------------------------//
