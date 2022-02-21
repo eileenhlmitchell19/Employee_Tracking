@@ -59,23 +59,32 @@ function createDepartment() {
     .then((answers) => {
       console.log(answers);
 
-      let query = db.query(
-        "INSERT INTO department SET ?",
-        {
-          name: answers.departmentName,
-        },
-        function (res, err) {
-          if (err) throw err;
-          console.log(res);
-        }
-      );
+      // let query = db.query(
+      //   "INSERT INTO department SET ?",
+      //   {
+      //     name: answers.departmentName,
+      //   },
+      //   function (res, err) {
+      //     if (err) throw err;
+      //     console.log(res);
+      //   }
+      // );
 
-      console.log("query", query);
-    })
-    .then(() => {
-      start();
-    });
-}  
+    //   console.log("query", query);
+    // })
+    db.query("INSERT INTO employees SET ?", {
+      firstName: answers.first_Name,
+     lastName: answers.last_name,
+     role_id: answers.roleId,
+  }, 
+  function (res, err) {
+    if (err) throw err;
+    console.log(res);
+  }
+));
+} 
+}
+
   //-------------------------------------------------------------------//
 
   //--------------------- CREATE EMPLOYEE -----------------------------//
@@ -114,19 +123,24 @@ function createDepartment() {
   
         let query = db.query(
           // "INSERT INTO employee SET ?"
-          INSERT INTO employee (first_name, last_name, role_id), VALUES (answers.first_name, answers.last_name, answers.role_Id),
+          // INSERT INTO employee (first_name, last_name, role_id) VALUES (answers.first_name, answers.last_name, answers.role_Id),
           // {
           //   first_name: answers.firstName,
           //   last_name: answers.lastName,
           //   role_id: answers.roleId,
           // },
+          db.query("INSERT INTO employees SET ?", {
+            firstName: answers.first_Name,
+           lastName: answers.last_name,
+           role_id: answers.roleId,
+        }, 
           function (res, err) {
             if (err) throw err;
             console.log(res);
           }
-        );
+        ));
   
-        console.log("query", query);
+        // console.log("query", query);
       })
       .then(() => {
         start();
