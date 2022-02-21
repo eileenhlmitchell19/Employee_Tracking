@@ -113,12 +113,13 @@ function createDepartment() {
         console.log(answers);
   
         let query = db.query(
-          "INSERT INTO employee SET ?",
-          {
-            first_name: answers.firstName,
-            last_name: answers.lastName,
-            role_id: answers.roleId,
-          },
+          // "INSERT INTO employee SET ?"
+          INSERT INTO employee (first_name, last_name, role_id), VALUES (answers.first_name, answers.last_name, answers.role_Id),
+          // {
+          //   first_name: answers.firstName,
+          //   last_name: answers.lastName,
+          //   role_id: answers.roleId,
+          // },
           function (res, err) {
             if (err) throw err;
             console.log(res);
