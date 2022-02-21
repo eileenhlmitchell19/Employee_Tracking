@@ -72,18 +72,18 @@ function createDepartment() {
 
     //   console.log("query", query);
     // })
-    db.query("INSERT INTO employees SET ?", {
+    let query = db.query("INSERT INTO employees SET ?", {
       firstName: answers.first_Name,
      lastName: answers.last_name,
-     role_id: answers.roleId,
-  }, 
+     role_id: answers.roleId
+  },
   function (res, err) {
     if (err) throw err;
     console.log(res);
   }
 ));
 } 
-}
+
 
   //-------------------------------------------------------------------//
 
