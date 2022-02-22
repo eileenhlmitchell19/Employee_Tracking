@@ -57,7 +57,7 @@ function createDepartment() {
     // });
 
     .then((answers) => {
-      console.log(answers);
+      console.log("let be ", answers.departmentName);
 
       // let query = db.query(
       //   "INSERT INTO department SET ?",
@@ -72,9 +72,8 @@ function createDepartment() {
 
     //   console.log("query", query);
     // })
-    let query = db.query("INSERT INTO department SET ?", {
-      name: answers.name,
-  },
+    let query = db.query("INSERT INTO department SET name = ?", answers.departmentName,
+  
   function (res, err) {
     if (err) throw err;
     console.log(res);
