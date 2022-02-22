@@ -50,28 +50,8 @@ function createDepartment() {
         message: "What is the department name?",
       },
     ])
-    // .then((answers) => {
-    //   teamMembers.push(new Department(answers.departmentName));
-    //   console.log(answers);
-    //   console.log(teamMembers);
-    // });
-
     .then((answers) => {
       console.log("let be ", answers.departmentName);
-
-      // let query = db.query(
-      //   "INSERT INTO department SET ?",
-      //   {
-      //     name: answers.departmentName,
-      //   },
-      //   function (res, err) {
-      //     if (err) throw err;
-      //     console.log(res);
-      //   }
-      // );
-
-    //   console.log("query", query);
-    // })
     let query = db.query("INSERT INTO department SET name = ?", answers.departmentName,
   
   function (res, err) {
