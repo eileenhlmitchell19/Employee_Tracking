@@ -71,56 +71,37 @@ function createDepartment() {
       .prompt([
         {
           type: "Input",
-          name: "firstName",
+          name: "first_name",
           message: "What is the employees first name?",
         },
         {
           type: "Input",
-          name: "lastName",
+          name: "last_name",
           message: "What is the employees last name?",
         },
         {
           type: "Input",
-          name: "roleID",
+          name: "role_id",
           message:
             "What is the role id of the employee (Engineering = 1, Planning = 2)?",
         },
       ])
-      // console.log("in2")
-                // .then(answers => {
-                 //   console.log(answers);
-      // .then((answers) => {
-      //   console.log("in3")
-      //   teamMembers.push(new Employee(answers.firstName));
-      //           // arrayID.push(manager.id)
-      //   console.log(answers);
-      //   console.log(teamMembers);
       .then((answers) => {
         console.log(answers);
   
         let query = db.query(
-          // "INSERT INTO employee SET ?"
-          // INSERT INTO employee (first_name, last_name, role_id) VALUES (answers.first_name, answers.last_name, answers.role_Id),
-          // {
-          //   first_name: answers.firstName,
-          //   last_name: answers.lastName,
-          //   role_id: answers.roleId,
-          // },
-          db.query("INSERT INTO employee SET ?", {
+          db.query("INSERT INTO employee SET name = ?", {
             first_name: answers.first_name,
            last_name: answers.last_name,
-           role_id: answers.roleId,
+           role_id: answers.role_id,
         }, 
-          function (res, err) {
-            if (err) throw err;
-            console.log(res);
-          }
-        ));
-  
-        // console.log("query", query);
-      })
-      .then(() => {
-        start();
+          function (err, result) {
+            if (err) throw err; else {
+              start();
+            }
+
+          }));
+          
       });
   }
   //-------------------------------------------------------------------//
@@ -164,7 +145,7 @@ function createRole() {
           if (err) throw err;
           console.log(res);
         }
-      );
+);
 
       console.log("query", query);
     })
