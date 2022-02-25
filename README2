@@ -1,0 +1,36 @@
+# README GENERATOR
+
+By: Eileen Mitchell
+- AN APPLICATION TO MANIPULATE AN EMPLOYEE DATABASE
+
+# Technologies Used
+- NODE.JS
+- INQUIRER PACKAGE
+- CONSOLE.TABLE PACKAGE
+- MYSQL PACKAGE
+- JAVASCRIPT
+
+# Description
+This application allows users to view tables for a companies employees, roles, and departments. The application also allows users to manipulate data by adding additional members to the team, add new employee roles or departments. Once updated, the user can then view their input into the table. All information can be accessed via the terminal by typing "node index.js" and following prompts. 
+
+# Known Bugs
+- Would like the application to continue to run once tables are displayed.
+- No delete employee, role, department function has been added
+
+
+
+# Links
+- [connection.js](./Assets/Main/db/connection.js)
+- [schema.js](./Assets/Main/db/schema.js)
+- [schema.sql](./Assets/Main/db/schema.sql)
+- [seeds.sql](./Assets/Main/db/seeds.sql)
+- [package-lock.json](./package-lock.json)
+- [package.json](./package.json)
+- [.gitignore](./.gitignore)
+
+# User Pictures
+![Project connection](Screenshot1.jpg)
+![Project connection](Screenshot2.jpg)
+
+# User Pictures
+[![A video from my Youtube channel from the working repo)](https://www.youtube.com/watch?v=EEEB4iBpHXE)
