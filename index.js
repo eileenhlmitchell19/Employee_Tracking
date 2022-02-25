@@ -4,36 +4,89 @@ const inquirer = require("inquirer");
 const teamMembers = [];
 const PORT = 3306;
 
+//--------------------- Connect to database-----------------------------//
+const db = mysql.createConnection({
+  host: "127.0.0.1",
+  // MySQL username,
+  user: "root",
+  port: PORT,
+  // MySQL password
+  password: "password",
+  database: "employee_db",
+});
 
+db.connect(function (err) {
+  if (err) {
+    throw err;
+  } else {
+    start()
+  }
+});
+
+function start() {
+  inquirer
+    .prompt({
+      type: "list",
+      name: "answers",
+      message: "what would you like to do today?",
+      choices: [
+        "Create an Employee",
+        "View all Employees",
+        "Create Department",
+        "View all Departments",
+        "Create Role",
+        "View all Roles",
+        "Quit",
+      ],
+    })
+    .then((response) => {
+      console.log("this is response: ", response);
+      if (response.answers === "Create Role") {
+        createRole();
+      } else if (response.answers === "View all Roles") {
+        viewAllRoles();
+      } else if (response.answers === "View all Employees") {
+        viewAllEmployees();
+      } else if (response.answers === "Create an Employee") {
+        createEmployee();
+      } else if (response.answers === "View all Departments") {
+        viewAllDepartments();
+      } else if (response.answers === "Create Department") {
+        createDepartment();
+      } else {
+        db.end();
+      }
+    });
+}
+
+//--------------------- End Connect to database-----------------------------//
 
 //--------------------- VIEW ALL DEPARTMENTS -----------------------------//
-async function viewAllDepartments() {
+function viewAllDepartments() {
   db.query("SELECT * FROM department", (err, results) => {
     if (err) throw err;
     console.log("------------DEPARTMENT TABLE------------");
     console.table(results);
-    start();
   });
 }
 
 //--------------------- VIEW ALL ROLES  -----------------------------//
 // view all roles - READ - SELECT * FROM [table_name]
-async function viewAllRoles() {
+function viewAllRoles() {
   db.query("SELECT * FROM role", (err, results) => {
     if (err) throw err;
     console.log("------------ROLE TABLE------------");
     console.table(results);
-    start();
+    
   });
 }
 
 //--------------------- VIEW ALL EMPLOYEES -----------------------------//
 //view all employees - READ - SELECT * FROM [table_name]
-async function viewAllEmployees() {
+function viewAllEmployees() {
   db.query("SELECT * FROM employee", (err, results) => {
     if (err) throw err;
     console.table(results);
-    start();
   });
 }
 ///FINISH
@@ -52,61 +105,76 @@ function createDepartment() {
     ])
     .then((answers) => {
       console.log("let be ", answers.departmentName);
-    let query = db.query("INSERT INTO department SET name = ?", answers.departmentName,
-  
-  function (err, result) {
-    if (err) throw err;
-    console.log(result);
-  }
-)});
+      let query = db.query(
+        "INSERT INTO department SET name = ?",
+        answers.departmentName,
+
+        function (err, result) {
+          if (err) throw err;
+          //console.log(result);
+        }
+      );
+    })
+    .then(() => {
+      start();
+    })
 }
 
+//-------------------------------------------------------------------//
 
-  //-------------------------------------------------------------------//
+//--------------------- CREATE EMPLOYEE -----------------------------//
+function createEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "first_name",
+        message: "What is the employees first name?",
+      },
+      {
+        type: "input",
+        name: "last_name",
+        message: "What is the employees last name?",
+      },
+      {
+        type: "input",
+        name: "role_id",
+        message:
+          "What is the role id of the employee (Engineering = 1, Planning = 2)?",
+      },
+      {
+        type: "input",
+        name: "manager_id",
+        message: "Who is the manager of this employee, please use manager id",
+      },
+    ])
+    .then((answers) => {
+      console.log(answers);
 
-  //--------------------- CREATE EMPLOYEE -----------------------------//
-  function createEmployee() { 
-    console.log("in")
-    inquirer
-      .prompt([
-        {
-          type: "Input",
-          name: "first_name",
-          message: "What is the employees first name?",
-        },
-        {
-          type: "Input",
-          name: "last_name",
-          message: "What is the employees last name?",
-        },
-        {
-          type: "Input",
-          name: "role_id",
-          message:
-            "What is the role id of the employee (Engineering = 1, Planning = 2)?",
-        },
-      ])
-      .then((answers) => {
-        console.log(answers);
-  
-        let query = db.query(
-          db.query("INSERT INTO employee SET name = ?", {
+      let query = db.query(
+          "INSERT INTO employee SET ?",
+          {
             first_name: answers.first_name,
-           last_name: answers.last_name,
-           role_id: answers.role_id,
-        }, 
+            last_name: answers.last_name,
+            role_id: answers.role_id,
+            manager_id: answers.managerId,
+          },
           function (err, result) {
-            if (err) throw err; else {
-              start();
-            }
+            if (err) throw err;
+            console.log(
+              "\n"+result.affectedRows + " employee(s) have been added!"
+            );
+          }
+      );
+      console.log(query.sql);
+    })
+    .then(() => {
+      start();
+    });
+}
+//-------------------------------------------------------------------//
 
-          }));
-          
-      });
-  }
-  //-------------------------------------------------------------------//
-
-  //--------------------- CREATE ROLE -----------------------------//
+//--------------------- CREATE ROLE -----------------------------//
 function createRole() {
   inquirer
     .prompt([
@@ -141,75 +209,16 @@ function createRole() {
           salary: answers.roleSalary,
           department_id: answers.departmentId,
         },
-        function (res, err) {
+        function (err, result) {
           if (err) throw err;
-          console.log(res);
+          // console.log(result);
         }
-);
+      );
 
-      console.log("query", query);
+      // console.log("query", query.sql);
     })
     .then(() => {
       start();
     });
 }
-  //-------------------------------------------------------------------//
 
-//--------------------- START FUNCTION -----------------------------//
-function start() {
-  inquirer
-    .prompt(
-      {
-        type: "list",
-        name: "answers",
-        message: "what would you like to do today?",
-        choices: [
-          "Create an Employee",
-          "View all Employees",
-          "Create Department",
-          "View all Departments",
-          "Create Role",
-          "View all Roles",
-          "Quit",
-        ]
-      }
-    )
-    .then((response) => {
-      console.log("this is response: ", response);
-      if (response.answers === "Create Role") {
-        createRole();
-      } else if (response.answers === "View all Roles") {
-        viewAllRoles();
-      } else if (response.answers === "View all Employees") {
-        viewAllEmployees();
-      } else if (response.answers === "Create an Employee") {
-        createEmployee();
-      } else if (response.answers === "View all Departments") {
-        viewAllDepartments();
-      } else if (response.answers === "Create Department") {
-        createDepartment();
-      } else response.answers === "Quit";
-    });
-}
-//-------------------------------------------------------------------//
-
-//--------------------- Connect to database-----------------------------//
-const db = mysql.createConnection({
-  host: "127.0.0.1",
-  // MySQL username,
-  user: "root",
-  port: PORT,
-  // MySQL password
-  password: "password",
-  database: "employee_db",
-});
-
-db.connect(function (err) {
-  if (err) {
-    throw err;
-  } else {
-    start();
-  }
-});
-
-//--------------------- End Connect to database-----------------------------//
